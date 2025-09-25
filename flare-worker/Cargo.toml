@@ -1,0 +1,18 @@
+[package]
+name = "flare-worker"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+flare-core = { path = "../flare-core" }
+flare-adapters = { path = "../flare-adapters" }
+flare-storage = { path = "../flare-storage" }
+flare-common = { path = "../flare-common" }
+
+tokio = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+rdkafka = { workspace = true }
+tracing = { workspace = true }

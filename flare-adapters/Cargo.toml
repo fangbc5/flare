@@ -1,0 +1,13 @@
+[package]
+name = "flare-adapters"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+flare-common = { path = "../flare-common" }
+
+async-trait = "0.1"
+anyhow = { workspace = true }
+serde = { workspace = true }
+tracing = { workspace = true }

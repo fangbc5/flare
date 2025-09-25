@@ -1,0 +1,15 @@
+[package]
+name = "flare-storage"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+flare-common = { path = "../flare-common" }
+
+sqlx = { workspace = true }
+redis = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
