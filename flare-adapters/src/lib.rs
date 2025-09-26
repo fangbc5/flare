@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+mod email;
+mod ali_sms;
+mod im_feishu;
+mod im_dingding;
+mod im_wechat;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use email::*;
+pub use ali_sms::*;
+pub use im_feishu::*;
+pub use im_dingding::*;
+pub use im_wechat::*;

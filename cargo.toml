@@ -16,15 +16,17 @@ rust-version = "1.75"
 
 [workspace.dependencies]
 # --- 基础 ---
-tokio = { version = "1.40", features = ["rt-multi-thread", "macros", "time"] }
+tokio = { version = "1.40", features = ["full"] }
 anyhow = "1.0"
 thiserror = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-config = "0.14"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 uuid = { version = "1", features = ["v4"] }
+config = "0.15"
+dotenvy = "0.15"
+futures-util = "0.3"
 
 # --- Web / API ---
 axum = "0.7"
@@ -36,7 +38,7 @@ sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "uuid"
 redis = { version = "0.25", features = ["tokio-comp"] }
 
 # --- Kafka ---
-rdkafka = { version = "0.36", features = ["tokio", "cmake-build"] }
+rdkafka = { version = "0.38", features = ["tokio", "cmake-build"] }
 
 # --- 模板 ---
 tera = "1.19"
@@ -44,3 +46,11 @@ handlebars = "6.0"
 
 # --- 监控 ---
 prometheus = "0.13"
+
+# --- 邮件 ---
+lettre = { version = "0.11", default-features = false, features = ["tokio1-rustls", "builder", "ring", "rustls-native-certs", "smtp-transport"] }
+async-trait = "0.1"
+
+# --- http client ---
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+

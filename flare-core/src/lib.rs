@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+mod sender;
+mod notification;
+mod log;
+mod feishu;
+mod dingding;
+mod wechat;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub use sender::*;
+pub use notification::*;
+pub use log::*;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}

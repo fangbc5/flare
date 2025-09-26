@@ -8,6 +8,12 @@ rust-version.workspace = true
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }
+config = { workspace = true }
 thiserror = { workspace = true }
 uuid = { workspace = true }
 tracing = { workspace = true }
+async-trait = { workspace = true }
+dotenvy = { workspace = true }
+
+lettre = { workspace = true }
+reqwest = { workspace = true }
