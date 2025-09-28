@@ -23,7 +23,7 @@ flare/
 │   ├── im_feishu.rs  # 飞书机器人
 │   ├── im_dingding.rs # 钉钉机器人
 │   ├── im_wechat.rs  # 企业微信 (待实现)
-│   └── im_dingding.rs # 钉钉 (待实现)
+│   └── im_dingding.rs # 钉钉
 ├── flare-storage     # 存储层 (Postgres/Redis/SQLite)
 ├── flare-worker      # 异步任务处理 (队列消费者)
 └── flare-common      # 公共模块 (配置/日志/错误/模型)
