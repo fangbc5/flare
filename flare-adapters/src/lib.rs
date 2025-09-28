@@ -8,4 +8,4 @@ pub use email::*;
 pub use ali_sms::*;
 pub use im_feishu::*;
 pub use im_dingding::*;
-pub use im_wechat::*;
+// pub use im_wechat::*;
