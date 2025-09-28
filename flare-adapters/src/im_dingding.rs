@@ -270,7 +270,7 @@ mod tests {
             body: serde_json::json!({
                 "msg_type": "image",
                 "content": {
-                    "picURL": "https://alidocs.dingtalk.com/i/nodes/NDoBb60VLybv3eZQuxp1jw4MJlemrZQ3?utm_scene=person_space"
+                    "picURL": "https://inews.gtimg.com/news_bt/OBkbmPLeWLy4IM4oUDGvOIqSDSZ9lYOtW3qSXCYh78KXcAA/1000"
                 }
             }).to_string(),
             channel: flare_common::ChannelType::ImDingding,
