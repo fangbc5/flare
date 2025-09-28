@@ -15,9 +15,18 @@ async fn main() {
     dotenvy::dotenv().ok();
     // 初始化日志
     init_logger().await;
+    // 从环境变量获取 Kafka 配置
+    let kafka_servers = std::env::var("KAFKA_BOOTSTRAP_SERVERS")
+        .unwrap_or_else(|_| "localhost:9092".to_string());
+    let kafka_topic = std::env::var("KAFKA_TOPIC")
+        .unwrap_or_else(|_| "flare-messages".to_string());
+    
+    info!("Kafka servers: {}", kafka_servers);
+    info!("Kafka topic: {}", kafka_topic);
+
     let consumer: StreamConsumer = ClientConfig::new()
         .set("group.id", "flare-workers") // 多节点消费时保证同组，消息仅消费一次
-        .set("bootstrap.servers", "localhost:9092")
+        .set("bootstrap.servers", &kafka_servers)
         .set("enable.partition.eof", "false")
         .set("session.timeout.ms", "6000")
         .set("enable.auto.commit", "true")
@@ -25,7 +34,7 @@ async fn main() {
         .expect("Failed to create Kafka consumer");
 
     consumer
-        .subscribe(&["flare-messages"])
+        .subscribe(&[&kafka_topic])
         .expect("Can't subscribe to topic");
 
     // 创建发送器上下文
