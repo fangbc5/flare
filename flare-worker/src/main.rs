@@ -2,8 +2,8 @@ use flare_core::init_logger;
 use rdkafka::{consumer::{Consumer, StreamConsumer}, ClientConfig, Message};
 use futures_util::StreamExt;
 use tracing::info;
-use flare_common::{EmailConfig, SmsConfig, FeishuConfig};
-use flare_adapters::{EmailSender, SmsSender, FeishuSender};
+use flare_common::{EmailConfig, SmsConfig, FeishuConfig, DingdingConfig};
+use flare_adapters::{EmailSender, SmsSender, FeishuSender, DingdingSender};
 use crate::handlers::HandlerContext;
 
 
@@ -32,10 +32,12 @@ async fn main() {
     let email_cfg = EmailConfig::from_env().expect("加载邮件配置失败");
     let sms_cfg = SmsConfig::from_env().expect("加载短信配置失败");
     let feishu_cfg = FeishuConfig::from_env().expect("加载飞书配置失败");
+    let dingding_cfg = DingdingConfig::from_env().expect("加载钉钉配置失败");
     let ctx = HandlerContext {
         email_sender: EmailSender::new(&email_cfg),
         sms_sender: SmsSender::new(sms_cfg),
         feishu_sender: FeishuSender::new(feishu_cfg),
+        dingding_sender: DingdingSender::new(dingding_cfg),
     };
 
     let mut stream = consumer.stream();

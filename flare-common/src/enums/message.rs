@@ -46,3 +46,42 @@ impl From<FeishuMessageType> for &'static str {
         }
     }
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum DingdingMessageType {
+    /// 文本消息
+    Text,
+    /// Markdown 富文本
+    Markdown,
+    /// 链接消息
+    Link,
+    /// 交互卡片
+    ActionCard,
+    /// 消息卡片
+    FeedCard,
+    /// 图片
+    Image,
+    /// 文件
+    File,
+    /// 语音
+    Audio,
+    /// 视频
+    Video,
+}
+
+impl From<DingdingMessageType> for &'static str {
+    fn from(t: DingdingMessageType) -> Self {
+        match t {
+            DingdingMessageType::Text => "text",
+            DingdingMessageType::Markdown => "markdown",
+            DingdingMessageType::Link => "link",
+            DingdingMessageType::ActionCard => "actionCard",
+            DingdingMessageType::FeedCard => "feedCard",
+            DingdingMessageType::Image => "image",
+            DingdingMessageType::File => "file",
+            DingdingMessageType::Audio => "audio",
+            DingdingMessageType::Video => "video",
+        }
+    }
+}

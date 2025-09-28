@@ -74,3 +74,19 @@ impl FeishuConfig {
         })
     }
 }
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct DingdingConfig {
+    pub webhook: String,
+    pub secret: Option<String>,
+}
+
+impl DingdingConfig {
+    pub fn from_env() -> Result<Self> {
+        dotenvy::dotenv().ok();
+        Ok(Self {
+            webhook: env::var("DINGDING_WEBHOOK").context("缺少 DINGDING_WEBHOOK 配置")?,
+            secret: env::var("DINGDING_SECRET").ok(),
+        })
+    }
+}

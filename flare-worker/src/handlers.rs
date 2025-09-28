@@ -1,8 +1,7 @@
-use flare_common::SmsConfig;
 use flare_common::{ChannelType, EmailConfig, FlareError, FlareResult};
 use flare_core::Notification;
 use flare_core::Sender;
-use flare_adapters::{EmailSender, SmsSender, FeishuSender};
+use flare_adapters::{EmailSender, SmsSender, FeishuSender, DingdingSender};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -18,6 +17,7 @@ pub struct HandlerContext {
     pub email_sender: EmailSender,
     pub sms_sender: SmsSender,
     pub feishu_sender: FeishuSender,
+    pub dingding_sender: DingdingSender,
 }
 
 pub async fn dispatch(ctx: &HandlerContext, msg: Message) {
@@ -25,6 +25,7 @@ pub async fn dispatch(ctx: &HandlerContext, msg: Message) {
         ChannelType::Email => handle_email(ctx, msg).await,
         ChannelType::Sms => handle_sms(ctx, msg).await,
         ChannelType::ImFeishu => handle_im_feishu(ctx, msg).await,
+        ChannelType::ImDingding => handle_im_dingding(ctx, msg).await,
         _ => Err(FlareError::Config("Unsupported message type".into())),
     };
 
@@ -84,6 +85,22 @@ async fn handle_im_feishu(ctx: &HandlerContext, msg: Message) -> FlareResult<()>
     };
 
     ctx.feishu_sender.send(&notification).await
+}
+
+async fn handle_im_dingding(ctx: &HandlerContext, msg: Message) -> FlareResult<()> {
+    // 支持 payload.text 或 payload.body 作为消息内容
+    let content = require_str(&msg.payload, "text")
+        .or_else(|_| require_str(&msg.payload, "body"))?;
+
+    let notification = Notification {
+        from: String::new(),
+        to: String::new(),
+        subject: String::new(),
+        body: content,
+        channel: ChannelType::ImDingding,
+    };
+
+    ctx.dingding_sender.send(&notification).await
 }
 
 fn require_str(payload: &serde_json::Value, key: &str) -> FlareResult<String> {
